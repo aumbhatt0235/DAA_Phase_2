@@ -18,22 +18,26 @@ struct process
 int n;
 struct process p[100];
 
-void input()
+void input_processes()
 {
-	cout<<"Enter the number of processes : ";
-	cin>>n;
+	cout<<"\nEnter the number of processes : ";
+	cin >> n;
 	
 	for(int i=0;i<n;i++)
 	{
-		cout<<"Enter process number ,Arrival time and burst time : \n";
-		cin>>p[i].pno>>p[i].at>>p[i].bt;
+		cout << "\nEnter process number:";
+		cin >> p[i].pno;
+		cout << "Arrival time: ";
+		cin >> p[i].at;
+		cout << "Burst time : ";
+		cin >> p[i].bt;
 		p[i].rt = p[i].bt;
 		p[i].wt = 0;
 		p[i].ct = p[i].at;
 	}
 }
 
-void classical_rr()
+void classical_rr(int timeQuantam)
 {
 	//Local variables
 	int i,j,flag;
@@ -44,10 +48,13 @@ void classical_rr()
 	l=h=0;
 	int count = 0;
 	int time = 0;
-	int tq = 2;
+	int tq = timeQuantam;// 2;
 	int time_exec ;
 	float awt = 0,att = 0;
 	//Copying to another array
+
+	cout<<"\n Classical Round Robin Result: \n -------------------------------\n  Gantt chart:\n\t";
+
 	for(i=0;i<n;i++)
 	{
 		q[i] = p[i];
@@ -80,7 +87,7 @@ void classical_rr()
 			}
 		
 		//Execute the process present at rbeg
-		cout<<"<"<<time<<">"<<"---"<<r[rbeg].pno<<"---";
+		cout<<"("<<time<<")"<<"___"<<r[rbeg].pno<<"___";
 		
 		
 		//Calculating parameters
@@ -120,12 +127,13 @@ void classical_rr()
 			rbeg++;
 		}
 	}
-	cout<<time;
+	cout << "("<<time<<")";
 	
-	cout<<"\n\n AWT : "<<(awt)/n<<"  ATT : "<<(att)/n<<endl;
+	cout << "\n\n  Average Waiting Time    : "<<(awt)/n;
+	cout << "\n  Average Turnaround Time : "<<(att)/n<<endl<<endl;
 }
 
-void irr()
+void improved_rr()
 {
 	
 	//Local variables
@@ -148,6 +156,8 @@ void irr()
 	int oqt;
 	int n_temp = 0;//Keeps track of number of distinct processes
 	int exec_temp = 0;//Keeps track of number of processes executed
+
+	cout<<"\n Improved Round Robin Result: \n -------------------------------\n  Gantt chart:\n\t";
 	
 	//Copying to another array
 	for(i=0;i<n;i++)
@@ -215,7 +225,7 @@ void irr()
 		}	
 		
 		//Execute the process present at rbeg
-		cout<<"<"<<time<<">"<<"---"<<r[rbeg].pno<<"---";
+		cout<<"("<<time<<")"<<"___"<<r[rbeg].pno<<"___";
 		exec_temp = (exec_temp+1)%(n_temp);
 		
 		//cout<<"Executing : "<<r[rbeg].pno<<" From  : "<<time<<" to :";
@@ -257,22 +267,29 @@ void irr()
 			rbeg++;
 		}
 	}
-	cout<<"<"<<time<<">";
+	cout<<"("<<time<<")";
 	
-	cout<<"\n\n AWT : "<<(awt)/n<<"  ATT : "<<(att)/n<<endl;
+	cout << "\n\n  Average Waiting Time    : "<<(awt)/n;
+	cout << "\n  Average Turnaround Time : "<<(att)/n<<endl<<endl;
+
 }
 int main()
 {
-	//Accept input 
-	input();
-		
-	//Classical rr
-	cout<<"\n\n\n\n Classical RR \n\n\n";
-	classical_rr();
+	int originalTimeQuantam = 0;
+
+	// Input data for all processes.
+	input_processes();
+
+	cout << "\nEnter the Original Time Quantam (For classic RR scheduling) : ";
+	cin >> originalTimeQuantam;
 	
-	//Irr
-	cout<<"\n\n\n\n IRR \n\n\n";
-	irr();
+	//Classical Round Robin Scheduling
+	classical_rr(originalTimeQuantam);
+	
+	//Improved Round Robin Scheduling
+	improved_rr();
+
+
 	return 0;
 }
 
