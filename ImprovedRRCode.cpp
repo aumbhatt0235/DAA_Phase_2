@@ -133,7 +133,7 @@ void classical_rr(int timeQuantam)
 	cout << "\n  Average Turnaround Time : "<<(att)/n<<endl<<endl;
 }
 
-void improved_rr()
+void improved_rr(int timeQuantam)
 {
 	
 	//Local variables
@@ -280,14 +280,14 @@ int main()
 	// Input data for all processes.
 	input_processes();
 
-	cout << "\nEnter the Original Time Quantam (For classic RR scheduling) : ";
+	cout << "\nEnter the Initial Time Quantam : ";
 	cin >> originalTimeQuantam;
 	
 	//Classical Round Robin Scheduling
 	classical_rr(originalTimeQuantam);
 	
 	//Improved Round Robin Scheduling
-	improved_rr();
+	improved_rr(originalTimeQuantam);
 
 
 	return 0;
