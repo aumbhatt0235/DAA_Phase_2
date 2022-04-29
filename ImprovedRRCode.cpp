@@ -145,7 +145,7 @@ void improved_rr(int timeQuantam)
 	l=h=0;
 	int count = 0;
 	int time = 0;
-	int tq = 25;
+	int tq = timeQuantam;
 	int time_exec ;
 	float awt = 0,att = 0;
 	
